@@ -3,4 +3,4 @@
 	url = git@github.com:BlakeDonn/trustystack-frontend.git
 [submodule "trustystack-backend/rust"]
 	path = trustystack-backend/rust
-	url = git@github.com:BlakeDonn/trustystack-backend.git
+	url = git@github.com:BlakeDonn/trustystack-rust.git
