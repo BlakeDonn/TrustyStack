@@ -1,6 +1,9 @@
-[submodule "trustystack-frontend"]
-	path = trustystack-frontend
-	url = git@github.com:BlakeDonn/trustystack-frontend.git
 [submodule "trustystack-backend/rust"]
 	path = trustystack-backend/rust
 	url = git@github.com:BlakeDonn/trustystack-rust.git
+[submodule "frontend/web"]
+	path = frontend/web
+	url = git@github.com:BlakeDonn/trustystack-react-web.git
+[submodule "frontend/native"]
+	path = frontend/native
+	url = git@github.com:BlakeDonn/trustystack-react-native.git
