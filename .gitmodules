@@ -10,3 +10,6 @@
 [submodule "backend/python-partpicker"]
 	path = backend/python-partpicker
 	url = git@github.com:BlakeDonn/trustystack-scraper.git
+[submodule "backend/python/parts"]
+	path = backend/python/parts
+	url = git@github.com:BlakeDonn/trustystack-scraper.git
