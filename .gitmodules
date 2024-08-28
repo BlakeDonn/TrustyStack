@@ -10,3 +10,6 @@
 [submodule "backend/python/parts"]
 	path = backend/python/parts
 	url = git@github.com:BlakeDonn/trustystack-scraper.git
+[submodule "data/database"]
+	path = data/database
+	url = git@github.com:BlakeDonn/trustystack-database.git
