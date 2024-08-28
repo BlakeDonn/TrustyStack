@@ -7,3 +7,6 @@
 [submodule "frontend/native"]
 	path = frontend/native
 	url = git@github.com:BlakeDonn/trustystack-react-native.git
+[submodule "backend/python/parts"]
+	path = backend/python/parts
+	url = git@github.com:BlakeDonn/trustystack-scraper.git
