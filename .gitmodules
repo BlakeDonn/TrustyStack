@@ -18,7 +18,3 @@
 	path = data/database
 	url = git@github.com:BlakeDonn/trustystack-database.git
   branch=main
-[submodule "infra"]
-	path = infra
-	url = git@github.com:BlakeDonn/trustystack-cicd.git
-  branch=main
