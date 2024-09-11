@@ -13,3 +13,6 @@
 [submodule "data/database"]
 	path = data/database
 	url = git@github.com:BlakeDonn/trustystack-database.git
+[submodule "infra"]
+	path = infra
+	url = git@github.com:BlakeDonn/trustystack-cicd.git
