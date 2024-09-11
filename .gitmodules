@@ -1,15 +1,24 @@
 [submodule "backend/rust"]
 	path = backend/rust
 	url = git@github.com:BlakeDonn/trustystack-rust.git
+  branch=main
 [submodule "frontend/web"]
 	path = frontend/web
 	url = git@github.com:BlakeDonn/trustystack-react-web.git
+  branch=main
 [submodule "frontend/native"]
 	path = frontend/native
 	url = git@github.com:BlakeDonn/trustystack-react-native.git
+  branch=main
 [submodule "backend/python/parts"]
 	path = backend/python/parts
 	url = git@github.com:BlakeDonn/trustystack-scraper.git
+  branch=main
 [submodule "data/database"]
 	path = data/database
 	url = git@github.com:BlakeDonn/trustystack-database.git
+  branch=main
+[submodule "infra"]
+	path = infra
+	url = git@github.com:BlakeDonn/trustystack-cicd.git
+  branch=main
