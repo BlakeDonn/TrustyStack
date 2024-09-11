@@ -9,7 +9,7 @@
 [submodule "frontend/native"]
 	path = frontend/native
 	url = git@github.com:BlakeDonn/trustystack-react-native.git
-  branch=main
+	branch = main
 [submodule "backend/python/parts"]
 	path = backend/python/parts
 	url = git@github.com:BlakeDonn/trustystack-scraper.git
@@ -17,4 +17,8 @@
 [submodule "data/database"]
 	path = data/database
 	url = git@github.com:BlakeDonn/trustystack-database.git
+  branch=main
+[submodule "infra/cicd"]
+	path = infra/cicd
+	url = git@github.com:BlakeDonn/trustystack-cicd.git
   branch=main
