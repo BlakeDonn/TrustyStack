@@ -21,4 +21,4 @@
 [submodule "infra/cicd"]
 	path = infra/cicd
 	url = git@github.com:BlakeDonn/trustystack-cicd.git
-  branch=main
+  branch= main
