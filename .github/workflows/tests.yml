@@ -7,6 +7,9 @@ on:
 
 jobs:
   run-rust-tests:
-    name: Run Rust Tests in Submodule
-    uses: BlakeDonn/trustystack-rust/.github/workflows/rust-tests.yml@main  # Reuse the workflow
+    uses: BlakeDonn/trustystack-rust/.github/workflows/rust-tests.yml@main
+    with:
+      ref: main  # Specify the branch to check out
+    secrets:
+      PAT_TOKEN: ${{ secrets.PAT_RUST_REPO }}
 
