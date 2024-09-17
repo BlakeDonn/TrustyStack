@@ -1,0 +1,15 @@
+name: Trigger Rust Tests on PR
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  run-rust-tests:
+    uses: BlakeDonn/trustystack-rust/.github/workflows/rust-tests.yml@main
+    with:
+      ref: main  # Specify the branch to check out
+    secrets:
+      PAT_TOKEN: ${{ secrets.PAT_RUST_REPO }}
+
