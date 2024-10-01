@@ -1,0 +1,181 @@
+Git repos and structure
+Main repo: Locally "Code"
+https://github.com/BlakeDonn/TrustyStack
+
+Dockerhub:
+https://hub.docker.com/repository/docker/writhkin/rust-backend/general
+writhkin/rust-backend:latest
+
+Rust web service deployed at render:
+rust-backend:latest
+==> Starting service...
+Running database migrations...
+Database migrations completed successfully.
+Starting the application...
+Starting the Rust backend server...
+DATABASE_URL found: postgresql://writhkin:ssozxICVDXp6uXRqW2aSPbhf9HKdotn9@dpg-crl1a1l6l47c73fpt0m0-a/trustystack_db
+Database connection pool created successfully.
+Server started successfully at http://0.0.0.0:8080
+==> Your service is live 🎉
+==> No open ports detected, continuing to scan...
+==> Docs on specifying a port: https://render.com/docs/web-services#port-binding
+
+Postgresql database deployed at render:
+hostname:dpg-crl1a1l6l47c73fpt0m0-a
+port:5432
+trustystack_db
+
+React web app:
+Not created yet, just repo
+Plan to use most popular and reliable infra
+typescript
+Vite
+nextjs?
+Biome instead of prettier and eslint
+
+
+Next steps:
+1. Extract parts from part list to be added to the database, create relevant tables, and update / adjust api to fetch parts. Please help with ideas in the context of the use cases we come up with. 
+2. Build out react web app, set up basic tooling with typescript, yarn, vite, state management (TanStack Query), set up flow and get testing and cicd set up with automatic deployment similar to rust backend.
+3. Create configurator on react web app. Build out user flows, make designs, connect FE, BE, PSQL, fetch all parts, populate configurator, build cart feature.
+
+To keep in mind:
+1. Be creative with new features for the application, the idea should be that various professional industries can use this tool and see results of hardware on performance for industry software.
+2. Lets keep a strong culture of updating documentation and atomatically comitting.
+3. If certain features need additional infastructure to do securely and compliant for industry standards, we will do them.
+4. Use free tools unless completely impossible
+
+
+Code/.gitmodules:
+[submodule "backend/rust"]
+	path = backend/rust
+	url = git@github.com:BlakeDonn/trustystack-rust.git
+  branch=main
+[submodule "frontend/web"]
+	path = frontend/web
+	url = git@github.com:BlakeDonn/trustystack-react-web.git
+  branch=main
+[submodule "frontend/native"]
+	path = frontend/native
+	url = git@github.com:BlakeDonn/trustystack-react-native.git
+	branch = main
+[submodule "backend/python/parts"]
+	path = backend/python/parts
+	url = git@github.com:BlakeDonn/trustystack-scraper.git
+  branch=main
+[submodule "data/database"]
+	path = data/database
+	url = git@github.com:BlakeDonn/trustystack-database.git
+  branch=main
+[submodule "infra/cicd"]
+	path = infra/cicd
+	url = git@github.com:BlakeDonn/trustystack-cicd.git
+  branch= main
+
+
+
+
+├── .git
+│   ├── FETCH_HEAD
+│   ├── HEAD
+│   ├── ORIG_HEAD
+│   ├── config
+│   ├── description
+│   ├── index
+│   ├── info
+│   │   └── exclude
+│   ├── logs
+│   │   ├── HEAD
+│   │   └── refs
+│   ├── modules
+│   │   ├── backend
+│   │   ├── data
+│   │   ├── frontend
+│   │   ├── infra
+│   │   └── trustystack-backend
+│   └── refs
+│       ├── heads
+│       ├── remotes
+│       └── tags
+├── .github
+│   └── workflows
+│       └── tests.yml
+├── .gitmodules
+├── README.md
+├── backend
+│   ├── .DS_Store
+│   ├── python
+│   │   └── parts
+│   └── rust
+│       ├── .DS_Store
+│       ├── .env
+│       ├── .git
+│       ├── .github
+│       ├── .gitignore
+│       ├── Cargo.toml
+│       ├── Dockerfile
+│       ├── README.md
+│       ├── diesel.toml
+│       ├── entrypoint.sh
+│       ├── migrations
+│       ├── src
+│       └── tests
+├── data
+│   └── database
+│       ├── .git
+│       ├── Dockerfile
+│       └── README.md
+├── docs
+│   ├── backend.md
+│   ├── cicd.md
+│   ├── combined.md
+│   ├── data.md
+│   ├── dev.md
+│   └── frontend.md
+├── frontend
+│   ├── .DS_Store
+│   ├── native
+│   │   ├── .DS_Store
+│   │   ├── .eslintrc.js
+│   │   ├── .expo
+│   │   ├── .git
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app
+│   │   ├── app.json
+│   │   ├── assets
+│   │   ├── babel.config.js
+│   │   ├── components
+│   │   ├── constants
+│   │   ├── eas.json
+│   │   ├── expo-env.d.ts
+│   │   ├── hooks
+│   │   ├── package.json
+│   │   ├── redux
+│   │   ├── services
+│   │   ├── tsconfig.json
+│   │   ├── types
+│   │   └── utils
+│   └── web
+│       ├── .git
+│       ├── .gitignore
+│       ├── README.md
+│       ├── package.json
+│       ├── public
+│       ├── src
+│       └── tsconfig.json
+├── infra
+│   ├── .DS_Store
+│   └── cicd
+│       ├── .DS_Store
+│       ├── .git
+│       ├── .github
+│       └── pipelines
+└── structure.txt
+
+49 directories, 65 files
+.github/workflows
+└── tests.yml
+
+1 directory, 1 file
+
