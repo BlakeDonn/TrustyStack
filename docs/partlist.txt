@@ -1,0 +1,226 @@
+CPU
+Intel Core i9 Series
+Core i9-14900K
+
+Cores/Threads: 8 Performance cores + 16 Efficient cores (Total 24 cores, 32 threads)
+Base Clock Speed: 3.2 GHz (Performance cores)
+Max Turbo Boost: Up to 6.0 GHz
+Cache: 36 MB Intel Smart Cache
+TDP: 125W (Base), 253W (Max Turbo Power)
+Socket Type: LGA 1700
+Memory Support: DDR5-5600, DDR4-3200
+Integrated Graphics: Intel UHD Graphics 770
+Process Technology: Intel 7 (10nm)
+Core i9-14900KF
+
+Same as i9-14900K, but without integrated graphics.
+Intel Core i7 Series
+Core i7-14700K
+
+Cores/Threads: 8 Performance cores + 12 Efficient cores (Total 20 cores, 28 threads)
+Base Clock Speed: 3.4 GHz (Performance cores)
+Max Turbo Boost: Up to 5.6 GHz
+Cache: 33 MB Intel Smart Cache
+TDP: 125W (Base), 253W (Max Turbo Power)
+Socket Type: LGA 1700
+Memory Support: DDR5-5600, DDR4-3200
+Integrated Graphics: Intel UHD Graphics 770
+Process Technology: Intel 7 (10nm)
+Core i7-14700KF
+
+Same as i7-14700K, but without integrated graphics.
+Intel Core i5 Series
+Core i5-14600K
+
+Cores/Threads: 6 Performance cores + 8 Efficient cores (Total 14 cores, 20 threads)
+Base Clock Speed: 3.5 GHz (Performance cores)
+Max Turbo Boost: Up to 5.3 GHz
+Cache: 24 MB Intel Smart Cache
+TDP: 125W (Base), 181W (Max Turbo Power)
+Socket Type: LGA 1700
+Memory Support: DDR5-5600, DDR4-3200
+Integrated Graphics: Intel UHD Graphics 770
+Process Technology: Intel 7 (10nm)
+Core i5-14600KF
+
+Same as i5-14600K, but without integrated graphics.
+AMD Ryzen Threadripper PRO 7000 WX-Series
+Ryzen Threadripper PRO 7995WX
+
+Cores/Threads: 96 cores / 192 threads
+Base Clock Speed: 2.5 GHz
+Max Boost Clock: Up to 5.1 GHz
+Cache: 480 MB (L2 + L3)
+TDP: 350W
+Socket Type: sTR5
+Memory Support: 8-channel DDR5-5200 ECC Registered
+PCIe Support: 128 lanes of PCIe 5.0
+Process Technology: 5nm
+Ryzen Threadripper PRO 7985WX
+
+Cores/Threads: 64 cores / 128 threads
+Base Clock Speed: 3.2 GHz
+Max Boost Clock: Up to 5.1 GHz
+Cache: 320 MB (L2 + L3)
+TDP: 350W
+Socket Type: sTR5
+Memory Support: 8-channel DDR5-5200 ECC Registered
+PCIe Support: 128 lanes of PCIe 5.0
+Process Technology: 5nm
+AMD Ryzen Series
+Ryzen 9 9950X
+
+Cores/Threads: 16 cores / 32 threads
+Base Clock Speed: 4.0 GHz
+Max Boost Clock: Up to 5.7 GHz
+Cache: 80 MB (L2 + L3)
+TDP: 170W
+Socket Type: AM5
+Memory Support: Dual-channel DDR5
+Integrated Graphics: AMD Radeon Graphics
+Process Technology: 5nm
+Ryzen 7 9700X
+
+Cores/Threads: 8 cores / 16 threads
+Base Clock Speed: 4.5 GHz
+Max Boost Clock: Up to 5.5 GHz
+Cache: 40 MB (L2 + L3)
+TDP: 65W
+Socket Type: AM5
+Memory Support: Dual-channel DDR5
+Integrated Graphics: AMD Radeon Graphics
+Process Technology: 5nm
+GPU
+NVIDIA Ada Lovelace Generation
+RTX 6000 Ada Generation
+
+CUDA Cores: 18,176
+Base Clock: 2.2 GHz
+Memory: 48 GB GDDR6 ECC
+Memory Interface Width: 384-bit
+Memory Bandwidth: 960 GB/s
+TDP: 300W
+Interface: PCIe 4.0 x16
+Outputs: 4x DisplayPort 1.4a
+Form Factor: Dual-slot
+RTX 4000 SFF Ada Generation
+
+CUDA Cores: 6,144
+Base Clock: 1.56 GHz
+Memory: 20 GB GDDR6 ECC
+Memory Interface Width: 160-bit
+Memory Bandwidth: 320 GB/s
+TDP: 70W
+Interface: PCIe 4.0 x16
+Outputs: 4x Mini DisplayPort 1.4a
+Form Factor: Single-slot, low-profile
+NVIDIA GeForce
+RTX 4090
+
+CUDA Cores: 16,384
+Base Clock: 2.23 GHz
+Boost Clock: 2.52 GHz
+Memory: 24 GB GDDR6X
+Memory Interface Width: 384-bit
+Memory Bandwidth: 1,008 GB/s
+TDP: 450W
+Interface: PCIe 4.0 x16
+Outputs: HDMI 2.1a, 3x DisplayPort 1.4a
+Form Factor: Triple-slot
+RTX 4070 Ti
+
+CUDA Cores: 7,680
+Base Clock: 2.31 GHz
+Boost Clock: 2.61 GHz
+Memory: 12 GB GDDR6X
+Memory Interface Width: 192-bit
+Memory Bandwidth: 504 GB/s
+TDP: 285W
+Interface: PCIe 4.0 x16
+Outputs: HDMI 2.1a, 3x DisplayPort 1.4a
+Form Factor: Dual-slot
+AMD Radeon Pro Workstation Graphics
+AMD Radeon Pro W7900
+Compute Units: 96
+Stream Processors: 6,144
+Base Clock: 1.9 GHz
+Memory: 48 GB GDDR6 with ECC
+Memory Interface Width: 384-bit
+Memory Bandwidth: 864 GB/s
+TDP: 295W
+Interface: PCIe 4.0 x16
+Outputs: 3x DisplayPort 2.1, 1x Mini DisplayPort 2.1
+Form Factor: Dual-slot
+Motherboards
+Intel 14th Generation Motherboards
+ASUS ROG Maximus Z790 Hero
+Chipset: Intel Z790
+CPU Support: 12th and 13th Gen Intel Core processors (14th Gen support with BIOS update)
+Socket: LGA 1700
+Memory Support: 4x DIMM slots, up to 128 GB DDR5 7800+ MT/s (OC)
+Expansion Slots: 2x PCIe 5.0 x16 (x16 or x8/x8)
+Storage: 5x M.2 slots (2x PCIe 5.0 x4, 3x PCIe 4.0 x4), 6x SATA 6Gb/s
+Networking: Intel Wi-Fi 6E, Marvell AQtion 10Gb Ethernet
+USB Ports: USB 3.2 Gen 2x2 Type-C, USB 4.0 ports
+Form Factor: ATX
+AMD Threadripper Motherboards
+ASUS Pro WS TRX50-SAGE WIFI
+Chipset: AMD TRX50
+CPU Support: AMD Ryzen Threadripper 7000 Series
+Socket: sTR5
+Memory Support: 8x DIMM slots, up to 256 GB DDR5 ECC Registered
+Expansion Slots: Multiple PCIe 5.0 x16 slots
+Storage: Multiple M.2 slots with PCIe 5.0 support, SATA ports
+Networking: Dual 10Gb Ethernet, Wi-Fi 6E
+USB Ports: USB 3.2 Gen 2x2 Type-C, USB 4.0
+Form Factor: E-ATX
+Memory
+Kingston FURY Beast
+KF560C36BBK2/64
+Capacity: 64 GB (Kit of 2x32 GB)
+Speed: 6000 MT/s
+CAS Latency: CL36
+Voltage: 1.35V
+Memory Type: DDR5
+ECC: No
+Buffered/Registered: Unbuffered
+Heat Spreader: Yes
+RGB Lighting: No
+Form Factor: UDIMM
+Kingston FURY Renegade RGB
+KF572C36RSAK2-32
+Capacity: 32 GB (Kit of 2x16 GB)
+Speed: 7200 MT/s
+CAS Latency: CL36
+Voltage: 1.45V
+Memory Type: DDR5
+ECC: No
+Buffered/Registered: Unbuffered
+Heat Spreader: Yes
+RGB Lighting: Yes
+Form Factor: UDIMM
+Storage
+Kingston NV3 PCIe 4.0 NVMe SSD
+SNV3S/1000G
+Capacity: 1 TB
+Interface: PCIe 4.0 x4 NVMe
+Form Factor: M.2 2280
+Sequential Read Speed: Up to 3,500 MB/s
+Sequential Write Speed: Up to 2,800 MB/s
+NAND Type: 3D TLC
+Controller: Phison E19T
+Endurance: 300 TBW
+Encryption Support: No
+Heat Sink: No
+Kingston FURY Renegade PCIe 4.0 NVMe SSD
+SFYRD/2000G
+Capacity: 2 TB
+Interface: PCIe 4.0 x4 NVMe
+Form Factor: M.2 2280
+Sequential Read Speed: Up to 7,300 MB/s
+Sequential Write Speed: Up to 7,000 MB/s
+NAND Type: 3D TLC
+Controller: Phison E18
+Endurance: 2,000 TBW
+Encryption Support: No
+Heat Sink: Optional with heatsink model
