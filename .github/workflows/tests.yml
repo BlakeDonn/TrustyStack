@@ -9,7 +9,7 @@ jobs:
   run-rust-tests:
     uses: BlakeDonn/trustystack-rust/.github/workflows/rust-tests.yml@main
     with:
-      ref: main  # Specify the branch to check out
+      ref: main  
     secrets:
       PAT_TOKEN: ${{ secrets.PAT_RUST_REPO }}
 
