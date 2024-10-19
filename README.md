@@ -1,3 +1,5 @@
+![Rust Tests](https://github.com/BlakeDonn/trustystack-rust/actions/workflows/rust-tests.yml/badge.svg)
+
 # TrustyStack
 
 TrustyStack is a hardware benchmarking platform, designed to provide professionals with insights into how various hardware configurations perform in real-world industry software environments.

@@ -57,6 +57,26 @@ autocmd BufRead,BufNewFile *.txt setlocal formatoptions-=c formatoptions-=r form
 EOL
 }
 
+# Load environment variables from .env files
+load_env() {
+    # Load infra/cicd/.env
+    if [ -f "$SCRIPT_DIR/../backend/rust/.env" ]; then
+        export $(grep -v '^#' "$SCRIPT_DIR/../backend/rust/.env" | xargs)
+    else
+        echo "Warning: infra/cicd/.env not found."
+    fi
+
+    # Load backend/rust/.env
+    if [ -f "$SCRIPT_DIR/../infra/cicd/.env" ]; then
+        export $(grep -v '^#' "$SCRIPT_DIR/../infra/cicd/.env" | xargs)
+    else
+        echo "Warning: backend/rust/.env not found."
+    fi
+}
+
+# Load the environment variables
+load_env
+
 # Create help tips and Neovim config if they don't exist
 if [ ! -f "$HELP_FILE" ]; then
     create_help_file
@@ -100,7 +120,7 @@ if [ $? != 0 ]; then
     # Run migrations and start the backend in the top-right pane
     tmux send-keys -t "$TOP_RIGHT_PANE" "cd \"$RUST_BACKEND_DIR\"" C-m
     tmux send-keys -t "$TOP_RIGHT_PANE" "echo 'Waiting for the database to be ready...'" C-m
-    tmux send-keys -t "$TOP_RIGHT_PANE" "until pg_isready -h localhost -p 5432 -U bd -d trustystack; do sleep 1; done" C-m
+    tmux send-keys -t "$TOP_RIGHT_PANE" "until pg_isready -h localhost -p 5432 -U \$POSTGRES_USER -d \$POSTGRES_DB; do sleep 1; done" C-m
     tmux send-keys -t "$TOP_RIGHT_PANE" "echo 'Database is ready. Running migrations...'" C-m
     tmux send-keys -t "$TOP_RIGHT_PANE" "cargo run --bin migrate" C-m
     tmux send-keys -t "$TOP_RIGHT_PANE" "echo 'Starting the Rust backend with hot reloading...'" C-m

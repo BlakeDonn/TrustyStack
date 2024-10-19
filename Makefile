@@ -1,28 +1,9 @@
 # Makefile for Development Workflow Management
-MAKEFILE_DIR := $(dir $(realpath $(firstword $(MAKEFILE_LIST))))
 
-
-# Development Environment Variables
-RUST_BACKEND_DIR := $(MAKEFILE_DIR)/backend/rust
-DEV_COMPOSE_FILE := $(MAKEFILE_DIR)/infra/cicd/pipelines/docker-compose.dev.yml
-DEV_ENV_FILE := $(MAKEFILE_DIR)/infra/cicd/pipelines/dev.env
-DEV_DOCKER_COMPOSE_CMD := docker-compose -f $(DEV_COMPOSE_FILE) --env-file $(DEV_ENV_FILE)
-
-# Production Environment Variables
-PROD_COMPOSE_FILE := $(MAKEFILE_DIR)/infra/cicd/pipelines/docker-compose.prod.yml
-PROD_ENV_FILE := $(MAKEFILE_DIR)/infra/cicd/pipelines/prod.env
-PROD_DOCKER_COMPOSE_CMD := docker-compose -f $(PROD_COMPOSE_FILE) --env-file $(PROD_ENV_FILE)
-
-# Load environment variables from .env files
-ifneq (,$(wildcard $(DEV_ENV_FILE)))
-    include $(DEV_ENV_FILE)
-    export $(shell sed 's/=.*//' $(DEV_ENV_FILE))
-endif
-
-ifneq (,$(wildcard $(PROD_ENV_FILE)))
-    include $(PROD_ENV_FILE)
-    export $(shell sed 's/=.*//' $(PROD_ENV_FILE))
-endif
+# Default environment variables
+RUST_BACKEND_DIR := backend/rust
+DEV_COMPOSE_FILE := infra/cicd/pipelines/docker-compose.dev.yml
+DOCKER_COMPOSE_CMD := docker-compose -f $(DEV_COMPOSE_FILE)
 
 # Default target
 .PHONY: help
@@ -37,9 +18,6 @@ help:
 	@echo "  make submodule-update    - Update Git submodules to the latest commit"
 	@echo "  make submodule-sync      - Sync submodules with remote repositories"
 	@echo "  make prepare-pr          - Prepare repository and submodules for a Pull Request"
-	@echo "  make prod-up             - Start the production database and services"
-	@echo "  make prod-down           - Stop the production database and services"
-	@echo "  make prod-clean          - Clean production containers and volumes"
 
 # Start development database
 .PHONY: dev
@@ -60,27 +38,11 @@ clean:
 .PHONY: migrate
 migrate:
 	cd $(RUST_BACKEND_DIR) && cargo run --bin migrate
-	# Start production services
-.PHONY: prod-up
-prod-up:
-	$(PROD_DOCKER_COMPOSE_CMD) up -d
-
-# Stop production services
-.PHONY: prod-down
-prod-down:
-	$(PROD_DOCKER_COMPOSE_CMD) down
-
-# Clean up production containers and volumes
-.PHONY: prod-clean
-prod-clean:
-	$(PROD_DOCKER_COMPOSE_CMD) down -v
-
 
 # Start the tmux-based development environment
 .PHONY: tmux-dev
 tmux-dev:
 	./dev_workflow/dev_run_tmux.sh
-
 
 # Initialize Git submodules
 .PHONY: submodule-init
