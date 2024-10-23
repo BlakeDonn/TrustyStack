@@ -1,0 +1,8 @@
+Tmux Commands
+
+Switch pane:       Prefix + h/j/k/l    | Create window:       Prefix + c
+Detach session:    Prefix + d          | Next window:         Prefix + L
+Kill pane:         Prefix + x          | Previous window:     Prefix + H
+Resize pane:       Prefix + Alt+h/j/k/l| Split pane (vert):   Prefix + -
+Split pane (horiz):Prefix + |          | View help:           Prefix + ?
+
