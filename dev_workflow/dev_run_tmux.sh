@@ -11,86 +11,78 @@ RUST_BACKEND_DIR="$SCRIPT_DIR/../backend/rust"
 # Determine the Docker Compose directory
 DOCKER_COMPOSE_DIR="$SCRIPT_DIR/../infra/cicd/pipelines"
 
-# Path to the help tips file
-HELP_FILE="$SCRIPT_DIR/tmux_help.txt"
-
-# Path to the minimal Neovim configuration
-MINIMAL_INIT_VIM="$SCRIPT_DIR/minimal_init.vim"
-
-# Function to create the help tips file
-create_help_file() {
-    cat <<EOL > "$HELP_FILE"
-Tmux Commands
-
-| Switch pane:       Prefix + h/j/k/l | Create window:       Prefix + c       |
-| Detach session:    Prefix + d          | Next window:         Prefix + L     |
-| Kill pane:         Prefix + x          | Previous window:     Prefix + H     |
-| Resize pane:       Prefix + Alt+h/j/k/l | Split pane (vert):   Prefix + -     |
-| Split pane (horiz):Prefix + |          | View help:           Prefix + ?     |
-| Exit tmux: Type exit or Ctrl+d in each pane                  |
-EOL
-}
-
-# Function to create the minimal Neovim configuration
-create_minimal_init_vim() {
-    cat <<EOL > "$MINIMAL_INIT_VIM"
-set nolist
-set nonumber
-set norelativenumber
-set cursorline
-set nowrap
-set noswapfile
-set nobackup
-set noundofile
-set nohlsearch
-set scrolloff=0
-set sidescrolloff=0
-set signcolumn=no
-set colorcolumn=
-set background=dark
-set termguicolors
-syntax off
-filetype off
-
-" Disable auto commenting
-autocmd BufRead,BufNewFile *.txt setlocal formatoptions-=c formatoptions-=r formatoptions-=o
-EOL
-}
+# Determine the Frontend directory
+FRONTEND_WEB_DIR="$SCRIPT_DIR/../frontend/web"
 
 # Load environment variables from .env files
 load_env() {
-    # Load infra/cicd/.env
+    # Load backend/rust/.env
     if [ -f "$SCRIPT_DIR/../backend/rust/.env" ]; then
         export $(grep -v '^#' "$SCRIPT_DIR/../backend/rust/.env" | xargs)
     else
-        echo "Warning: infra/cicd/.env not found."
+        echo "Warning: backend/rust/.env not found."
     fi
 
-    # Load backend/rust/.env
+    # Load infra/cicd/.env
     if [ -f "$SCRIPT_DIR/../infra/cicd/.env" ]; then
         export $(grep -v '^#' "$SCRIPT_DIR/../infra/cicd/.env" | xargs)
     else
-        echo "Warning: backend/rust/.env not found."
+        echo "Warning: infra/cicd/.env not found."
+    fi
+}
+
+# Function to attempt to start Docker if it's not running
+ensure_docker_running() {
+    if ! docker info >/dev/null 2>&1; then
+        echo "Docker does not seem to be running. Attempting to start Docker..."
+
+        # Try systemd if available
+        if command -v systemctl >/dev/null 2>&1; then
+            if sudo systemctl start docker; then
+                echo "Docker started successfully via systemctl."
+                return
+            fi
+        fi
+
+        # Try service command if available
+        if command -v service >/dev/null 2>&1; then
+            if sudo service docker start; then
+                echo "Docker started successfully via service command."
+                return
+            fi
+        fi
+
+        # MacOS check: try Docker Desktop if available
+        if [[ "$(uname)" == "Darwin" ]]; then
+            echo "Attempting to start Docker Desktop on macOS..."
+            if open -a Docker; then
+                # Wait a bit for Docker to start
+                echo "Waiting for Docker Desktop to start..."
+                sleep 10
+                if docker info >/dev/null 2>&1; then
+                    echo "Docker Desktop started successfully."
+                    return
+                fi
+            fi
+        fi
+
+        # If we reached here, we couldn't start Docker automatically
+        echo "Failed to start Docker automatically. Please start Docker manually and rerun the script."
+        exit 1
     fi
 }
 
 # Load the environment variables
 load_env
 
-# Create help tips and Neovim config if they don't exist
-if [ ! -f "$HELP_FILE" ]; then
-    create_help_file
-fi
-
-if [ ! -f "$MINIMAL_INIT_VIM" ]; then
-    create_minimal_init_vim
-fi
+# Ensure Docker is running
+ensure_docker_running
 
 # Start the tmux session and configure panes if it doesn't already exist
 tmux has-session -t $SESSION 2>/dev/null
 
 if [ $? != 0 ]; then
-    # Session doesn't exist; create it and set up panes
+    # Session doesn't exist; create it
     tmux new-session -d -s $SESSION -c "$DOCKER_COMPOSE_DIR" -n 'DevSession'
 
     # Get the main pane ID (the one that was just created)
@@ -102,16 +94,16 @@ if [ $? != 0 ]; then
     # Get the bottom pane ID
     BOTTOM_PANE=$(tmux list-panes -t $SESSION:0 -F '#{pane_id}' | tail -n1)
 
-    # Split the main (top) pane horizontally into left and right panes
+    # Split the top pane horizontally into left and right panes
     tmux select-pane -t $MAIN_PANE
     tmux split-window -h -p 50 -t $MAIN_PANE
 
-    # Get the pane IDs
+    # Get the pane IDs (top-left, top-right, bottom)
     PANE_IDS=($(tmux list-panes -t $SESSION:0 -F '#{pane_id}'))
     TOP_LEFT_PANE=${PANE_IDS[0]}
     TOP_RIGHT_PANE=${PANE_IDS[1]}
-    BOTTOM_LEFT_PANE=${PANE_IDS[2]}
-    BOTTOM_RIGHT_PANE=${PANE_IDS[3]}
+    # After the top split, bottom is still a single pane before we split it horizontally
+    BOTTOM_SINGLE_PANE=${PANE_IDS[2]}
 
     # Start the database in the top-left pane
     tmux send-keys -t "$TOP_LEFT_PANE" "cd \"$DOCKER_COMPOSE_DIR\"" C-m
@@ -126,16 +118,21 @@ if [ $? != 0 ]; then
     tmux send-keys -t "$TOP_RIGHT_PANE" "echo 'Starting the Rust backend with hot reloading...'" C-m
     tmux send-keys -t "$TOP_RIGHT_PANE" "cargo watch -x \"run --bin rust-backend\"" C-m
 
-    # Split the bottom pane horizontally into left (blank) and right (help) panes
-    tmux select-pane -t $BOTTOM_PANE
-    tmux split-window -h -p 50 -t $BOTTOM_PANE
+    # Now split the bottom pane horizontally into two equal panes
+    tmux select-pane -t $BOTTOM_SINGLE_PANE
+    tmux split-window -h -p 50 -t $BOTTOM_SINGLE_PANE
 
-    # Get the help pane ID
-    HELP_PANE=$(tmux list-panes -t $SESSION:0 -F '#{pane_id}' | tail -n1)
+    # Get the bottom-left and bottom-right pane IDs
+    BOTTOM_PANES=($(tmux list-panes -t $SESSION:0 -F '#{pane_id}' | tail -n2))
+    BOTTOM_LEFT_PANE=${BOTTOM_PANES[0]}
+    BOTTOM_RIGHT_PANE=${BOTTOM_PANES[1]}
 
-    # Send commands to the help pane to open Neovim with the help file
-    tmux send-keys -t "$HELP_PANE" "clear" C-m
-    tmux send-keys -t "$HELP_PANE" "nvim -u '$MINIMAL_INIT_VIM' -R '$HELP_FILE'" C-m
+    # In the bottom-left pane, run the frontend
+    tmux send-keys -t "$BOTTOM_LEFT_PANE" "cd \"$FRONTEND_WEB_DIR\"" C-m
+    tmux send-keys -t "$BOTTOM_LEFT_PANE" "yarn dev" C-m
+
+    # Bottom-right pane: leave it as a regular shell (no tmux commands shown)
+    tmux send-keys -t "$BOTTOM_RIGHT_PANE" "clear" C-m
 fi
 
 # Function to gracefully kill the tmux session and all running processes
@@ -148,6 +145,6 @@ cleanup() {
 # Trap SIGINT and SIGTERM to run cleanup
 trap cleanup SIGINT SIGTERM
 
-# Attach to the session in the current terminal
+# Attach to the session
 tmux attach-session -t $SESSION
 
